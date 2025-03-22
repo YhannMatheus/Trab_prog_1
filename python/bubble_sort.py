@@ -5,5 +5,5 @@ def bubble_sort(elemento):
             if elemento[j] > elemento[j+1]:
                 elemento[j], elemento[j+1] = elemento[j+1], elemento[j]
     return elemento
-lista = [2,5,1,7,3,9]
+lista = [2,5,1,7,3,9,10,4]
 print(bubble_sort(lista))
