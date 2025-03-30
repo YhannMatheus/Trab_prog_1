@@ -1,5 +1,3 @@
-import random
-
 def mergesort(lista, inicio=0, fim=None):
     if fim is None:
         fim = len(lista)
@@ -8,6 +6,7 @@ def mergesort(lista, inicio=0, fim=None):
         mergesort(lista, inicio, meio)
         mergesort(lista, meio, fim)
         merge(lista, inicio, meio, fim)
+        return lista
 
 def merge(lista, inicio, meio,fim):
 
@@ -30,8 +29,3 @@ def merge(lista, inicio, meio,fim):
         else:
             lista[k] = right[top_right]
             top_right += 1
-
-lista = random.sample(range(1,1000), 5)
-print(lista) # Lista antes da ordenação
-mergesort(lista)
-print(lista) # Lista depois da ordenação
