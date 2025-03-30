@@ -1,11 +1,15 @@
 from sorts import bubblesort, mergesort, quicksort
+from time import time
 import random
 
-def gerar_lista(tamanho=100, limite=1000):
+def gerar_lista_aleatoria(tamanho=100, limite=1000):
     return random.sample(range(1, limite), tamanho)
 
 if __name__ == "__main__":
-    lista = gerar_lista(5)
-    print("Lista original:", lista)
-    print("Bubble Sort:", bubblesort(lista[:]))
-    print("Merge Sort:", mergesort(lista[:]))
+    listaAleatoria = gerar_lista_aleatoria(999) # Gerando uma lista de números aleatórios
+    print("Lista original:", listaAleatoria)
+
+    inicio = time() 
+    print("Bubble Sort:", bubblesort(listaAleatoria[:])) # Alterne o algorimo de ordenação aqui
+    fim = time()
+    print(f'O tempo de execução foi: {fim-inicio}ms')
