@@ -3,6 +3,15 @@
 #include <time.h>
 #include "../benchmark.h"
 
+// Função para trocar dois elementos e contabilizar as trocas
+void swap(int* a, int* b, struct BenchmarkMetrics *metrics) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+    metrics->trocas++;
+}
+
+// Particionamento do QuickSort
 int partition(int array[], int low, int high, struct BenchmarkMetrics *metrics) {
     int pivot = array[high];
     int i = low - 1;
@@ -11,41 +20,50 @@ int partition(int array[], int low, int high, struct BenchmarkMetrics *metrics) 
         metrics->comparacoes++;
         if (array[j] < pivot) {
             i++;
-            // Troca os elementos
-            int temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-            metrics->trocas++;
+            swap(&array[i], &array[j], metrics);
         }
     }
 
-    // Coloca o pivô na posição correta
-    int temp = array[i + 1];
-    array[i + 1] = array[high];
-    array[high] = temp;
-    metrics->trocas++;
-
+    swap(&array[i + 1], &array[high], metrics);
     return i + 1;
 }
 
-void quick_sort(int array[], int low, int high, struct BenchmarkMetrics *metrics) {
-    if (low < high) {
-        int pi = partition(array, low, high, metrics);
-
-        // Ordena os elementos antes e depois da partição
-        quick_sort(array, low, pi - 1, metrics);
-        quick_sort(array, pi + 1, high, metrics);
-    }
-}
-
+// Implementação iterativa do QuickSort
 void quick_sort_with_benchmark(int array[], int size, struct BenchmarkMetrics *metrics) {
     metrics->comparacoes = 0;
     metrics->trocas = 0;
-    metrics->memoria = 0; // Quick Sort usa memória constante para o array
+    metrics->memoria = 0;
 
     clock_t start_time = clock();
-    quick_sort(array, 0, size - 1, metrics);
-    clock_t end_time = clock();
 
+    int* stack = (int*)malloc(size * sizeof(int));
+    if (stack == NULL) {
+        printf("Erro ao alocar memória para a pilha.\n");
+        return;
+    }
+
+    int top = -1;
+    stack[++top] = 0;
+    stack[++top] = size - 1;
+
+    while (top >= 0) {
+        int high = stack[top--];
+        int low = stack[top--];
+
+        int pi = partition(array, low, high, metrics);
+
+        if (pi - 1 > low) {
+            stack[++top] = low;
+            stack[++top] = pi - 1;
+        }
+
+        if (pi + 1 < high) {
+            stack[++top] = pi + 1;
+            stack[++top] = high;
+        }
+    }
+
+    free(stack);
+    clock_t end_time = clock();
     metrics->tempo_execucao = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
 }
