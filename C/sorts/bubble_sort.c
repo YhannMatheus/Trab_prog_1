@@ -1,8 +1,8 @@
+#include "bubble_sort.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
-#include "../benchmark.h"
 
 void bubble_sort(int array[], int size, struct BenchmarkMetrics *metrics) {
     bool troca;
