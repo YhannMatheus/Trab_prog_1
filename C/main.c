@@ -30,8 +30,7 @@ int main() {
         printf("  TESTANDO TAMANHO: %d\n", n);
         printf("==========================\n");
 
-        /*** 🟢 BUBBLE SORT ***/
-        if (n <= 10000) { // Bubble Sort apenas para listas menores ou iguais a 10.000
+        if (n <= 10000) {
             printf("\n--- Bubble Sort ---\n");
 
             gerar_lista_aleatoria(array, n, limite_superior);
@@ -55,7 +54,6 @@ int main() {
             printf("\n[Bubble Sort ignorado para tamanhos > 10000]\n");
         }
 
-        /*** 🔵 MERGE SORT ***/
         printf("\n--- Merge Sort ---\n");
 
         gerar_lista_aleatoria(array, n, limite_superior);
@@ -76,7 +74,6 @@ int main() {
         merge_sort_with_benchmark(array_copy, n, &metrics);
         printf("Tempo: %f s | Comparações: %d\n", metrics.tempo_execucao, metrics.comparacoes);
 
-        /*** 🔴 QUICK SORT ***/
         printf("\n--- Quick Sort ---\n");
 
         gerar_lista_aleatoria(array, n, limite_superior);

@@ -3,7 +3,6 @@
 #include <time.h>
 #include "../benchmark.h"
 
-// Função para trocar dois elementos e contabilizar as trocas
 void swap(int* a, int* b, struct BenchmarkMetrics *metrics) {
     int temp = *a;
     *a = *b;
@@ -11,7 +10,6 @@ void swap(int* a, int* b, struct BenchmarkMetrics *metrics) {
     metrics->trocas++;
 }
 
-// Particionamento do QuickSort
 int partition(int array[], int low, int high, struct BenchmarkMetrics *metrics) {
     int pivot = array[high];
     int i = low - 1;
@@ -28,7 +26,6 @@ int partition(int array[], int low, int high, struct BenchmarkMetrics *metrics) 
     return i + 1;
 }
 
-// Implementação iterativa do QuickSort
 void quick_sort_with_benchmark(int array[], int size, struct BenchmarkMetrics *metrics) {
     metrics->comparacoes = 0;
     metrics->trocas = 0;
